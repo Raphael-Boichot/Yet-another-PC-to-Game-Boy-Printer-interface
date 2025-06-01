@@ -1,6 +1,6 @@
 # Yet another PC to Game Boy Printer interface
 
-This project is designed to make sending data to the Game Boy Printer as simple as possible. The Arduino handles everything — checksums, timing, errors, and formatting — so you only need to send two very simple types of packets over the serial to print. An example code is provided, but any programming language can be used to control the Arduino.
+This project is designed to make sending data to the Game Boy Printer as simple as possible. The Arduino handles everything at low level — checksums, timing, errors, and formatting — so you only have to send two very simple types of packets over the serial to print. An example code is provided, but any high level programming language can be used to control the Arduino.
 
 ## Printing Procedure (yes it is that simple)
 
@@ -36,4 +36,4 @@ What you should get with the example GNU Octave code : random black and white ti
 
 ## Funfact
 
-Dealing with I/O on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week just to get something barely working, which is unusually long for my patience. It's much simpler to dump packets to an SD shield or to send individual bytes using a custom protocol entirely managed by the PC. I hope it will help people to deal with the printer from another platform.
+Dealing with I/O on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week just to get something barely working, which is unusually long for my patience. I hope this project will help people to deal with the printer from the high level programming langage of their own.
