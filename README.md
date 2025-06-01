@@ -31,3 +31,5 @@ The pinout is the same as this [previous project](https://github.com/Raphael-Boi
 If only white paper is fed or less data than expected shows on paper (typically only the bottom of an image), this means that the delay between packets is to big. You really have to do everything in less that 150 ms between packets, the timing is quite tight.
 
 ![Game Boy Printer to Arduino Uno pinout](Pictures/Setup.jpg)
+
+What you should get with the example GNU Octave code : random black and white tiles.
