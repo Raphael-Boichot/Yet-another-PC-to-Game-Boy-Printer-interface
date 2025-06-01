@@ -18,7 +18,7 @@ Additionally the Arduino echoes every packet sent and printer error on the seria
 
 ## Installation
 
-The example interface code can be ran with [GNU Octave](https://www.octave.org/). The Arduino code can be transfered easily from the [Arduino IDE](https://www.arduino.cc/en/software/).
+The example interface code can be ran with [GNU Octave](https://www.octave.org/) and shows everything you need to print something (a simple 160x144 pixels pattern here). The Arduino core itself can be transfered easily from the [Arduino IDE](https://www.arduino.cc/en/software/).
 
 ## Pinout and hardware
 
@@ -28,12 +28,12 @@ The pinout is the same as this [previous project](https://github.com/Raphael-Boi
 
 ## Troubleshooting
 
-If only white paper is fed or less data than expected shows on paper (typically only the bottom of an image), this means that the delay between packets is to big. You really have to do everything in less that 150 ms between packets, the timing is quite tight.
+If only white paper is fed or less data than expected shows on paper (typically only the bottom of an image), this means that the delay between packets is to big. You really have to chain packets with less that 150 ms inbetween, this is the only timing to respect.
 
 ![Game Boy Printer to Arduino Uno pinout](Pictures/Setup.jpg)
 
-What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter.
+What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter. The shown PCB (not mandatory) is linked is the previous section.
 
 ## Funfact
 
-Dealing with I/O on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week just to get something barely working, which is unusually long for my patience. I hope this project will help people to deal with the printer from the high level programming langage of their own.
+Dealing with I/O and timing on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week to get something simple and reliable, which is unusually long for my patience. I hope this project will help people to deal with the printer from the high level programming langage of their own.
