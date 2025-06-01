@@ -8,7 +8,7 @@ This project is designed to make sending data to the Game Boy Printer as simple 
 
 - To send data, use the following packet format:
 **["D"][640-byte [Gameboy 2BPP graphics data](https://www.huderlem.com/demos/gameboy2bpp.html)][CR]** (total of 642 bytes, CR is char(13)).
-Wait for the "Printer ready" message before sending the next packet. Each packet remains valid for 150 milliseconds unless followed immediately by another. You can send up to 9 packets consecutively. The same timing rule applies to the print command.
+Wait for the "Printer ready" message before sending the next packet. Each packet remains valid for 150 milliseconds if not followed immediately by another one. You can send up to 9 packets consecutively. The same timing rule applies to the print command.
 
 - To print, send the following command:
 **["P"][margin][palette][intensity][CR]** (total of 5 bytes, CR is char(13)). Margin, palette and intensity are the same as the [Game Boy printing protocol](https://gbdev.gg8.se/wiki/articles/Gameboy_Printer).
