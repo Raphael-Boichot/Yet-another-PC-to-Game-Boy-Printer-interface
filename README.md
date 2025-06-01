@@ -33,3 +33,7 @@ If only white paper is fed or less data than expected shows on paper (typically 
 ![Game Boy Printer to Arduino Uno pinout](Pictures/Setup.jpg)
 
 What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter.
+
+## Funfact
+
+Dealing with I/O on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week just to get something barely working, which is unusually long for my patience. It's much simpler to dump packets to an SD shield or to send individual bytes using a custom protocol entirely managed by the PC. I hope it will help people to deal with the printer from another platform.
