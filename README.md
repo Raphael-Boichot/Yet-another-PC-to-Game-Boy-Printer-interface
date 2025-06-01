@@ -32,4 +32,4 @@ If only white paper is fed or less data than expected shows on paper (typically 
 
 ![Game Boy Printer to Arduino Uno pinout](Pictures/Setup.jpg)
 
-What you should get with the example GNU Octave code : random black and white tiles.
+What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter.
