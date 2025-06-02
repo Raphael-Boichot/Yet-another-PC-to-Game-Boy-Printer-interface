@@ -3,7 +3,7 @@ function sendPacketAndConfirm(arduinoObj, packet)
   write(arduinoObj, packet, "uint8");  % Send packet
   pause(0.01);  % Give Arduino time to echo
 
-  %%%%%%%%%%%%%%%%%%this step is not mandatory, just for debug%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%this step is not mandatory, just for debug%%%%%%%%%%%%%%%%%%%%
 %  expectedLength = length(packet);
 %  echoed = read(arduinoObj, expectedLength, "uint8");
 %  if isequal(echoed, packet)
@@ -13,7 +13,7 @@ function sendPacketAndConfirm(arduinoObj, packet)
 %    fprintf("Sent:   %s\n", mat2str(packet));
 %    fprintf("Echoed: %s\n", mat2str(echoed));
 %  end
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   while arduinoObj.NumBytesAvailable > 0 %to avoid loosing time with garbage
   discard = readline(arduinoObj);  % Clear all startup messages
