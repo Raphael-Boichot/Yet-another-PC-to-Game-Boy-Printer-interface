@@ -46,10 +46,10 @@ void setup() {
   Serial.begin(250000);
   while (!Serial)
     ;
-  delay(100);                          // Give host time to connect
+  delay(100);                            // Give host time to connect
   Serial.println(F("[ARDUINO_READY]"));  //welcome message for GNU Octave
-  Serial.flush();                      // Ensure it's fully transmitted
-  ping_the_printer();                  //printer initialization
+  Serial.flush();                        // Ensure it's fully transmitted
+  ping_the_printer();                    //printer initialization
 }
 
 void loop() {
@@ -136,9 +136,6 @@ void send_printer_packet(byte packet[], int sequence_length) {
     printing(packet[i], mode, error_check, connection_check);
     digitalWrite(LED_pin, LOW);
   }
-  digitalWrite(LED_pin, HIGH);
-  delay(5);
-  digitalWrite(LED_pin, LOW);
 }
 
 void printing(int byte_sent, int mode, int error_check, int connection_check) {  // this function prints bytes to the serial
@@ -154,7 +151,7 @@ void printing(int byte_sent, int mode, int error_check, int connection_check) { 
     delayMicroseconds(30);  //double speed mode
   }
   delayMicroseconds(0);  //optional delay between bytes, may me less than 1490 µs
-  
+
   // if (mode == 1) {
   //   if (byte_sent <= 0x0F) {
   //     Serial.print('0');
