@@ -152,6 +152,7 @@ void printing(int byte_sent, int mode, int error_check, int connection_check) { 
   }
   delayMicroseconds(0);  //optional delay between bytes, may me less than 1490 µs
 
+  //// this part is just for debugging, it shows all the data sent////////
   // if (mode == 1) {
   //   if (byte_sent <= 0x0F) {
   //     Serial.print('0');
@@ -166,6 +167,7 @@ void printing(int byte_sent, int mode, int error_check, int connection_check) { 
   //   Serial.print(byte_read, HEX);
   //   Serial.print(' ');
   // }
+  /////////////////////////////////////////////////////////////////////////
 
   if (connection_check == 1) {
     state_printer_connected = 0;
