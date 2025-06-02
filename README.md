@@ -28,11 +28,11 @@ The pinout is the same as this [previous project](https://github.com/Raphael-Boi
 
 ## Troubleshooting
 
-If only white paper is fed or less data than expected shows on paper (typically only the bottom of an image), this means that the delay between packets is to big. You really have to chain packets with less that 150 ms inbetween, this is the only timing to respect.
+If only white paper is fed or less data than expected shows on paper (typically only the bottom of an image), this means that the delay between packets is to big in your code implementation. You really have to chain packets with less that 150 ms inbetween, this is the only timing to respect. Take inspiration from the example GNU Octave codes.
 
 ![Game Boy Printer to Arduino Uno pinout](Pictures/Setup.jpg)
 
-What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter. The shown PCB (not mandatory) is linked is the previous section.
+What you should get with the example GNU Octave code : random black and white tiles. Up to you to interface that with any fancier image converter (also provided). The shown PCB (not mandatory) is linked is the previous section.
 
 ## Funfact
 
