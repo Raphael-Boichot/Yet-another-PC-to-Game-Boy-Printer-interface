@@ -2,6 +2,8 @@
 
 This project is designed to make sending data to the Game Boy Printer as simple as possible from any platform / OS. The Arduino handles everything at low level — checksums, timing, errors, and formatting — so you only have to send two very simple types of packets over the serial to print. A multi OS example code is provided, but any high level programming language can be used to control the Arduino.
 
+This code derives from a [version using an SD shield](https://github.com/Raphael-Boichot/The-Arduino-SD-Game-Boy-Printer) for the Arduino core and from a [direct PC to printer version](https://github.com/Raphael-Boichot/Yet-another-PC-to-Game-Boy-Printer-interface) for the GNU Octave interface.
+
 ## Printing Procedure (yes it is that simple)
 
 - The Arduino automatically connects to the printer and initializes it. Wait for the "Printer connected" message from the serial port before sending data. The initialization remains valid for at least 10 seconds. All data are exchanged at 250000 bauds.
