@@ -10,8 +10,8 @@ try
   pkg load image
 end
 
-[DATA_packets_to_print]=image_slicer("Public-Pixel.png");
-[number_packets,~]=size(DATA_packets_to_print)
+[DATA_packets_to_print]=image_slicer("Public-Pixel.png");%transform image into Game Boy tiles
+[number_packets,~]=size(DATA_packets_to_print);%get the number of packets to print (40 tiles)
 
 global Arduino_baudrate;
 Arduino_baudrate = 250000;
@@ -47,14 +47,14 @@ for i=1:1:number_packets
 
   if rem(i,9)==0
     % === Send Print command without margin ===
-    printPayload = uint8([0, palette, intensity]);
+    printPayload = uint8([0, palette, intensity]);%force 0 margin to have a continuous printing
     printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
     sendPacketAndConfirm(arduinoObj, printPacket);
   end
 end
 
 % === Send Print command with margin===
-printPayload = uint8([margin, palette, intensity]);
+printPayload = uint8([margin, palette, intensity]);%Uses the real margin margin to separate images
 printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
 sendPacketAndConfirm(arduinoObj, printPacket);
 arduinoObj=[];
