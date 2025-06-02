@@ -9,9 +9,6 @@ try
     pkg load image
 end
 
-[DATA_packets_to_print]=image_slicer("Public-Pixel.png");%transform image into Game Boy tiles
-[number_packets,~]=size(DATA_packets_to_print);%get the number of packets to print (40 tiles)
-
 global Arduino_baudrate;
 Arduino_baudrate = 250000;
 %///////////////////////////////////////////////////////////////////////////////////
@@ -39,23 +36,34 @@ while ack==false;
     end
 end
 
-for i=1:1:number_packets
-    % === Send Data Packets ===
-    dataPayload=uint8(DATA_packets_to_print(i,:));
-    dataPacket = [uint8('D'), dataPayload, uint8(13)];
-    disp(['=== Sending packet# ',num2str(i),' ==='])
-    sendPacketAndConfirm(arduinoObj, dataPacket);
+imagefiles = [dir('Images/*.png'); dir('Images/*.jpg'); dir('Images/*.jpeg'); dir('Images/*.bmp'); dir('Images/*.gif')];
+nfiles = length(imagefiles);     % Number of files found
+for k=1:1:nfiles
+    currentfilename = imagefiles(k).name;
+    disp(['Converting image ',['Images/',currentfilename],' in progress...'])
+    [DATA_packets_to_print]=image_slicer(['Images/',currentfilename]);%transform image into Game Boy tiles
+    [number_packets,~]=size(DATA_packets_to_print);%get the number of packets to print (40 tiles)
+    pause(0.25);%let that poor GNU Octave recover
 
-    if rem(i,9)==0
-        % === Send Print command without margin ===
-        printPayload = uint8([0, palette, intensity]);%force 0 margin to have a continuous printing
-        printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
-        sendPacketAndConfirm(arduinoObj, printPacket);
+    for i=1:1:number_packets
+        % === Send Data Packets ===
+        dataPayload=uint8(DATA_packets_to_print(i,:));
+        dataPacket = [uint8('D'), dataPayload, uint8(13)];
+        disp(['=== Sending packet# ',num2str(i),' ==='])
+        sendPacketAndConfirm(arduinoObj, dataPacket);
+
+        if rem(i,9)==0
+            % === Send Print command without margin ===
+            printPayload = uint8([0, palette, intensity]);%force 0 margin to have a continuous printing
+            printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
+            sendPacketAndConfirm(arduinoObj, printPacket);
+        end
     end
+
+    % === Send Print command with margin===
+    printPayload = uint8([margin, palette, intensity]);%Uses the real margin margin to separate images
+    printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
+    sendPacketAndConfirm(arduinoObj, printPacket);
 end
 
-% === Send Print command with margin===
-printPayload = uint8([margin, palette, intensity]);%Uses the real margin margin to separate images
-printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
-sendPacketAndConfirm(arduinoObj, printPacket);
 arduinoObj=[];%closes the serial port cleanly
