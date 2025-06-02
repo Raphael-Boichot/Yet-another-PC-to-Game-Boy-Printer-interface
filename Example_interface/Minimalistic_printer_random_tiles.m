@@ -28,7 +28,7 @@ while arduinoObj.NumBytesAvailable > 0
   discard = readline(arduinoObj);  % Clear all startup messages
   if not(isempty(strfind(discard,"Printer connected")))
     disp("✅ Printer connected")
-    read(arduinoObj, 1, "uint8");%get rid of a last lost character
+    read(arduinoObj, 1, "uint8");%get rid of a last lost character, must be an issue only with GNU Octave
   else
     disp("❌ Printer not yet connected");
   end
