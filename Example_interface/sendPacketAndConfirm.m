@@ -1,7 +1,7 @@
 % === Function to send and confirm echo ===
 function sendPacketAndConfirm(arduinoObj, packet)
   write(arduinoObj, packet, "uint8");  % Send packet
-  pause(0.01);  % Give Arduino time to echo
+  pause(0.01);  % Give Arduino time to echo, increase if packets are skipped
 
 %%%%%%%%%%%%%%%%%%this step is not mandatory, just for debug%%%%%%%%%%%%%%%%%%%%
 %  expectedLength = length(packet);
@@ -16,10 +16,10 @@ function sendPacketAndConfirm(arduinoObj, packet)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   while arduinoObj.NumBytesAvailable > 0 %to avoid loosing time with garbage
-  discard = readline(arduinoObj);  % Clear all startup messages
+  discard = readline(arduinoObj);  % Clear all startup messages, remove semicolon to display
   if not(isempty(strfind(discard,"Printer ready")))
     disp("✅ Printer Ready")
-    read(arduinoObj, 1, "uint8");%get rid of a last lost character
+    read(arduinoObj, 1, "uint8");%get rid of a last lost character but this is just an issue with GNU Octave
   else
     disp("❌ Printer not yet ready");
   end
