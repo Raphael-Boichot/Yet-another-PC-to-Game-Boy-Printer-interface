@@ -75,4 +75,3 @@ for (y = 1:1:height)
 end
 
 image_rectified=(a);
-

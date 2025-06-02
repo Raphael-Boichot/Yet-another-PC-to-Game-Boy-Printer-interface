@@ -6,8 +6,8 @@ disp('|Beware, this code is for GNU Octave ONLY !!!             |')
 disp('-----------------------------------------------------------')
 
 try
-  pkg load instrument-control
-  pkg load image
+    pkg load instrument-control
+    pkg load image
 end
 
 [DATA_packets_to_print]=image_slicer("Public-Pixel.png");%transform image into Game Boy tiles
@@ -29,35 +29,32 @@ pause(2);  % Give Arduino time to initialize
 
 % === Flush any previous welcome message ===
 while arduinoObj.NumBytesAvailable > 0
-  discard = readline(arduinoObj);  % Clear all startup messages
-  if not(isempty(strfind(discard,"Printer connected")))
-    disp("✅ Printer connected")
-    read(arduinoObj, 1, "uint8");%get rid of a last lost character
-  else
-    disp("❌ Printer not yet connected");
-  end
+    discard = readline(arduinoObj);  % Clear all startup messages
+    if not(isempty(strfind(discard,"Printer connected")))
+        disp("✅ Printer connected")
+        read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of last lost characters
+    else
+        disp("❌ Printer not yet connected");
+    end
 end
 
 for i=1:1:number_packets
-  % === Send Data Packets ===
-  dataPayload=uint8(DATA_packets_to_print(i,:));
-  dataPacket = [uint8('D'), dataPayload, uint8(13)];
-  disp(['Sending packet# ',num2str(i)])
-  sendPacketAndConfirm(arduinoObj, dataPacket);
+    % === Send Data Packets ===
+    dataPayload=uint8(DATA_packets_to_print(i,:));
+    dataPacket = [uint8('D'), dataPayload, uint8(13)];
+    disp(['Sending packet# ',num2str(i)])
+    sendPacketAndConfirm(arduinoObj, dataPacket);
 
-  if rem(i,9)==0
-    % === Send Print command without margin ===
-    printPayload = uint8([0, palette, intensity]);%force 0 margin to have a continuous printing
-    printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
-    sendPacketAndConfirm(arduinoObj, printPacket);
-  end
+    if rem(i,9)==0
+        % === Send Print command without margin ===
+        printPayload = uint8([0, palette, intensity]);%force 0 margin to have a continuous printing
+        printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
+        sendPacketAndConfirm(arduinoObj, printPacket);
+    end
 end
 
 % === Send Print command with margin===
 printPayload = uint8([margin, palette, intensity]);%Uses the real margin margin to separate images
 printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
 sendPacketAndConfirm(arduinoObj, printPacket);
-arduinoObj=[];
-
-
-
+arduinoObj=[];%closes the serial port cleanly

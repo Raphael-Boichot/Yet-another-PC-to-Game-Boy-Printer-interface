@@ -6,7 +6,7 @@ disp('|Beware, this code is for GNU Octave ONLY !!!             |')
 disp('-----------------------------------------------------------')
 
 try
-pkg load instrument-control
+    pkg load instrument-control
 end
 
 global Arduino_baudrate;
@@ -25,21 +25,21 @@ pause(2);  % Give Arduino time to initialize
 
 % === Flush any previous welcome message ===
 while arduinoObj.NumBytesAvailable > 0
-  discard = readline(arduinoObj);  % Clear all startup messages
-  if not(isempty(strfind(discard,"Printer connected")))
-    disp("✅ Printer connected")
-    read(arduinoObj, 1, "uint8");%get rid of a last lost character, must be an issue only with GNU Octave
-  else
-    disp("❌ Printer not yet connected");
-  end
+    discard = readline(arduinoObj);  % Clear all startup messages
+    if not(isempty(strfind(discard,"Printer connected")))
+        disp("✅ Printer connected")
+        read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of a last lost characters, must be an issue only with GNU Octave
+    else
+        disp("❌ Printer not yet connected");
+    end
 end
 
 for i=1:9
-% === Send Data Packets ===
-dataPayload=uint8(256*repelem(rand(1,40)<0.5,16));%just random black and white tiles for testing
-dataPacket = [uint8('D'), dataPayload, uint8(13)];
-disp(['Sending packet# ',num2str(i)])
-sendPacketAndConfirm(arduinoObj, dataPacket);
+    % === Send Data Packets ===
+    dataPayload=uint8(256*repelem(rand(1,40)<0.5,16));%just random black and white tiles for testing
+    dataPacket = [uint8('D'), dataPayload, uint8(13)];
+    disp(['Sending packet# ',num2str(i)])
+    sendPacketAndConfirm(arduinoObj, dataPacket);
 end
 
 % === Send Print command ===
@@ -47,6 +47,3 @@ printPayload = uint8([margin, palette, intensity]);
 printPacket = [uint8('P'), printPayload, uint8(13)];  % CR = 13
 sendPacketAndConfirm(arduinoObj, printPacket);
 arduinoObj=[];
-
-
-
