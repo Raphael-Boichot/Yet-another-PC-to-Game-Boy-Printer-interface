@@ -15,12 +15,14 @@ else
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-while arduinoObj.NumBytesAvailable > 0 %to avoid loosing time with garbage
-    discard = readline(arduinoObj);  % Clear all startup messages, remove semicolon to display
-    if not(isempty(strfind(discard,"Printer ready")))
-        disp("✅ Printer Ready")
-        read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of a last lost character but this is just an issue with GNU Octave
-    else
-        disp("❌ Printer not yet ready");
+ack=false;
+while ack==false;
+    if arduinoObj.NumBytesAvailable > 0 %to avoid loosing time with garbage
+        discard = readline(arduinoObj);  % Clear all startup messages, remove semicolon to display
+        if not(isempty(strfind(discard,"Printer ready")))
+            disp("✅ Printer Ready")
+            ack=true;
+            read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of a last lost character but this is just an issue with GNU Octave
+        end
     end
 end

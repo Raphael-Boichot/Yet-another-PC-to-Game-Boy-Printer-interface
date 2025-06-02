@@ -1,6 +1,5 @@
 clc
 clear
-
 disp('-----------------------------------------------------------')
 disp('|Beware, this code is for GNU Octave ONLY !!!             |')
 disp('-----------------------------------------------------------')
@@ -23,14 +22,16 @@ arduinoObj = serialport(arduinoPort,'baudrate',Arduino_baudrate, 'Parity', 'none
 configureTerminator(arduinoObj, "CR");  % Sets terminator to CR (carriage return)
 pause(2);  % Give Arduino time to initialize
 
-% === Flush any previous welcome message ===
-while arduinoObj.NumBytesAvailable > 0
-    discard = readline(arduinoObj);  % Clear all startup messages
-    if not(isempty(strfind(discard,"Printer connected")))
-        disp("✅ Printer connected")
-        read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of a last lost characters, must be an issue only with GNU Octave
-    else
-        disp("❌ Printer not yet connected");
+% === Check if printer is connected ===
+ack=false;
+while ack==false;
+    if arduinoObj.NumBytesAvailable > 0 %to avoid loosing time with garbage
+        discard = readline(arduinoObj);  % Clear all startup messages, remove semicolon to display
+        if not(isempty(strfind(discard,"Printer connected")))
+            disp("✅ Printer online")
+            ack=true;
+            read(arduinoObj, arduinoObj.NumBytesAvailable, "uint8");%get rid of a last lost character but this is just an issue with GNU Octave
+        end
     end
 end
 
@@ -38,7 +39,7 @@ for i=1:9
     % === Send Data Packets ===
     dataPayload=uint8(256*repelem(rand(1,40)<0.5,16));%just random black and white tiles for testing
     dataPacket = [uint8('D'), dataPayload, uint8(13)];
-    disp(['Sending packet# ',num2str(i)])
+    disp(['=== Sending packet# ',num2str(i),' ==='])
     sendPacketAndConfirm(arduinoObj, dataPacket);
 end
 
