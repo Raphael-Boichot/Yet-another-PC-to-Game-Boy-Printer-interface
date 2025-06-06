@@ -8,8 +8,9 @@ for i = 1:length(ports)
         s = serialport(portCandidate,'baudrate',Arduino_baudrate, 'Parity', 'none', 'Timeout', 2);
         pause(1);  % Give time for Arduino to send welcome message
         % Try to read any startup message
+        data = readline(s);%first line is just a CR
         data = readline(s);
-        if not(isempty(strfind(data,"[ARDUINO_READY]")))
+        if not(isempty(strfind(data,"BOICHOT")))
             disp(['✅ Arduino detected on ', portCandidate]);
             port = portCandidate;
             return;
