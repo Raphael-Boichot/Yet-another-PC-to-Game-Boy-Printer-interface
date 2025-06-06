@@ -47,7 +47,9 @@ void setup() {
   while (!Serial)
     ;
   delay(100);                            // Give host time to connect
-  Serial.println(F("[ARDUINO_READY]"));  //welcome message for GNU Octave
+  Serial.println();  
+  Serial.println(F("// --- Super Printer Interface by Raphaël BOICHOT, 6 june 2025 ---"));  //welcome message for GNU Octave
+  Serial.println(F("// ----- GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 ------"));
   Serial.flush();                        // Ensure it's fully transmitted
   ping_the_printer();                    //printer initialization
 }
