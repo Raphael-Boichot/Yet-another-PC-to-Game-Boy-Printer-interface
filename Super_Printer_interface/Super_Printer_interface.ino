@@ -13,6 +13,12 @@
 #define BUFFER_WAIT_TIME 100
 uint8_t printBuffer[PRINT_PAYLOAD_SIZE];
 
+#if USB_VERSION == 0x210
+#include <WebUSB.h>
+WebUSB WebUSBSerial(1, "herrzatacke.github.io/gb-printer-web/webusb");
+#define Serial WebUSBSerial
+#endif
+
 bool bit_sent, bit_read;
 bool state_printer_busy = 0;
 bool state_printer_connected = 0;
@@ -47,7 +53,7 @@ void setup() {
   while (!Serial)
     ;
   delay(100);                            // Give host time to connect
-  Serial.println();  
+  Serial.println();
   Serial.println(F("// --- Super Printer Interface by Raphaël BOICHOT, 6 June 2025 ---"));  //welcome message for GNU Octave
   Serial.println(F("// ----- GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 ------"));
   Serial.flush();                        // Ensure it's fully transmitted
@@ -66,6 +72,7 @@ void loop() {
         echoPacket('P', printBuffer, PRINT_PAYLOAD_SIZE);
         finalize_and_print();  // stuff the printer with commands
         Serial.println(F("Printer ready"));
+        Serial.flush();
       } else {
         flushSerialInput();
       }
@@ -74,6 +81,7 @@ void loop() {
         echoPacket('D', DATA + DATA_PAYLOAD_OFFSET, DATA_PAYLOAD_SIZE);
         transmit_data_packet(DATA, 640);  //packet formatting
         Serial.println(F("Printer ready"));
+        Serial.flush();
       } else {
         flushSerialInput();
       }
@@ -226,6 +234,7 @@ void transmit_data_packet(byte* packet, word data_size) {
   Serial.print(F("DATA packet sent --> "));
   send_printer_packet(packet, total_packet_size);  // Send complete packet
   Serial.println();
+  Serial.flush();
 }
 
 void finalize_and_print() {
@@ -238,6 +247,7 @@ void finalize_and_print() {
   send_printer_packet(PRNT, 14);  // here we send the last printing command
   printing_loop();                // flux control
   Serial.println();
+  Serial.flush();
 }
 
 void ping_the_printer() {
@@ -251,7 +261,9 @@ void ping_the_printer() {
     if (!(state_printer_connected)) {
       Serial.print(F(" / Printer not responding"));
     }
+    Serial.flush();
   }
   Serial.println(F(" / Printer connected"));
+  Serial.flush();
 }
 //////////////////////////////////////Printer stuff//////////////////////////////////////////////
