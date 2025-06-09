@@ -22,7 +22,7 @@ Additionally the Arduino echoes every packet sent and printer error on the seria
 
 ## Installation
 
-The example interface code can be ran with [GNU Octave](https://www.octave.org/) and shows everything you need to print something (a simple 160x144 pixels pattern or a full image). The Arduino core itself can be transfered easily from the [Arduino IDE](https://www.arduino.cc/en/software/).
+The example interface code can be ran with [GNU Octave](https://www.octave.org/) and shows everything you need to print something (a simple 160x144 pixels pattern or a full image) or you can just use the the [gb-printer-web](https://herrzatacke.github.io/gb-printer-web/webusb/) to print. The Arduino core itself can be transfered easily from the [Arduino IDE](https://www.arduino.cc/en/software/).
 
 ## Pinout and hardware
 
