@@ -4,6 +4,8 @@ This project is designed to make sending data to the Game Boy Printer as simple 
 
 This code derives from a [version using an SD shield](https://github.com/Raphael-Boichot/The-Arduino-SD-Game-Boy-Printer) for the Arduino core and from a [direct PC to printer version](https://github.com/Raphael-Boichot/PC-to-Game-Boy-Printer-interface) for the GNU Octave interface. It is basically a fusion of the two projects.
 
+You can directly use the Arduino core with the [gb-printer-web](https://herrzatacke.github.io/gb-printer-web/webusb/) made by [HerrZatacke](https://github.com/HerrZatacke), it is compatible !
+
 ## Printing Procedure (yes it is that simple)
 
 - The Arduino automatically connects to the printer and initializes it. Wait for the "Printer connected" message from the serial port before sending data. The initialization remains valid for at least 10 seconds. All data are exchanged at 250000 bauds.
@@ -41,3 +43,7 @@ What you should get with one of the example GNU Octave code : random black and w
 ## Funfact
 
 Dealing with I/O and timing on the serial port — despite the Arduino being a slave-only device — turned out to be a surprisingly frustrating experience. It took me a whole week to get something simple and reliable, which is unusually long for my patience. I hope this project will help people to deal with the printer from the high level programming langage of their own.
+
+## Acknowledgements
+
+- [Andreas Hahn](https://github.com/HerrZatacke) (HerrZatacke) for interfacing the code with the [gb-printer-web](https://herrzatacke.github.io/gb-printer-web/webusb/).
