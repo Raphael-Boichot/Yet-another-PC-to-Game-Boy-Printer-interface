@@ -485,6 +485,7 @@ inline void gbp_packet_capture_loop()
 }
 #endif
 
+//////////////////////////////////////Printer stuff//////////////////////////////////////////////
 void Connect_to_printer()
 {
   pinMode(GBP_SC_PIN, OUTPUT);
@@ -547,47 +548,7 @@ void Connect_to_printer()
     }
   }
 }
-//////////////////////////////////////IO stuff///////////////////////////////////////////////////
-bool receiveAndStorePayload(uint8_t* buffer, size_t length)
-{
-  size_t received       = 0;
-  unsigned long timeout = millis() + BUFFER_WAIT_TIME;
 
-  while (received < length && millis() < timeout)
-  {
-    if (Serial.available())
-    {
-      buffer[received++] = Serial.read();
-    }
-  }
-
-  // Wait for CR terminator
-  while (millis() < timeout)
-  {
-    if (Serial.available())
-    {
-      char terminator = Serial.read();
-      return terminator == '\r';
-    }
-  }
-  return false;
-}
-
-void echoPacket(char type, uint8_t* buffer, size_t length)
-{
-  Serial.write(type);
-  Serial.write(buffer, length);
-  Serial.write('\r');  // Echo CR
-}
-
-void flushSerialInput()
-{
-  while (Serial.available()) Serial.read();
-}
-//////////////////////////////////////IO stuff///////////////////////////////////////////////////
-
-
-//////////////////////////////////////Printer stuff//////////////////////////////////////////////
 void printing_loop()
 {
   state_printer_busy = 1;  //to enter the loop
@@ -618,7 +579,7 @@ void send_printer_packet(byte packet[], int sequence_length)
 }
 
 void printing(int byte_sent, int mode, int error_check, int connection_check)
-{  // this function prints bytes to the serial
+{  // this function prints bytes to the serial, all the meat is here
   byte byte_read;
   for (int j = 0; j <= 7; j++)
   {
@@ -729,4 +690,42 @@ void finalize_and_print()
   Serial.println();
   Serial.flush();
 }
-//////////////////////////////////////Printer stuff//////////////////////////////////////////////
+
+//////////////////////////////////////IO stuff///////////////////////////////////////////////////
+bool receiveAndStorePayload(uint8_t* buffer, size_t length)
+{
+  size_t received       = 0;
+  unsigned long timeout = millis() + BUFFER_WAIT_TIME;
+
+  while (received < length && millis() < timeout)
+  {
+    if (Serial.available())
+    {
+      buffer[received++] = Serial.read();
+    }
+  }
+
+  // Wait for CR terminator
+  while (millis() < timeout)
+  {
+    if (Serial.available())
+    {
+      char terminator = Serial.read();
+      return terminator == '\r';
+    }
+  }
+  return false;
+}
+
+void echoPacket(char type, uint8_t* buffer, size_t length)
+{
+  Serial.write(type);
+  Serial.write(buffer, length);
+  Serial.write('\r');  // Echo CR
+}
+
+void flushSerialInput()
+{
+  while (Serial.available()) Serial.read();
+}
+//////////////////////////////////////end of Printer stuff///////////////////////////////////////////
