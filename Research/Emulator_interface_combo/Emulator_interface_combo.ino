@@ -502,7 +502,6 @@ void Connect_to_printer()
     digitalWrite(GBP_SI_PIN, LOW);   //acts like a real Game Boy
     delay(100);                      // Give host time to connect
     Serial.println();
-    Serial.println(F("// ---------------------- Printer connected ! --------------------"));  //welcome message for GNU Octave
     Serial.println(F("// --- Super Printer Interface by Raphaël BOICHOT, 6 June 2025 ---"));  //welcome message for GNU Octave
     Serial.println(F("// ----- GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 ------"));
     Serial.flush();  // Ensure it's fully transmitted
