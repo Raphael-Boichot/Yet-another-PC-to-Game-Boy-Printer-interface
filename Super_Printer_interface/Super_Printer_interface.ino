@@ -49,7 +49,7 @@ void setup() {
   digitalWrite(CLOCK_pin, HIGH);
   digitalWrite(TX_pin, LOW);
   // Open serial communications and wait for port to open:
-  Serial.begin(250000);
+  Serial.begin(115200);
   while (!Serial)
     ;
   delay(100);                            // Give host time to connect
