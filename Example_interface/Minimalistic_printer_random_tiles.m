@@ -9,7 +9,7 @@ try
 end
 
 global Arduino_baudrate;
-Arduino_baudrate = 250000;
+Arduino_baudrate = 115200;
 %///////////////////////////////////////////////////////////////////////////////////
 margin = 0x03;     %high nibble, upper margin, low nibble, lower margin, that simple
 palette = 0x00;    %0x00 is treated as default (= 0xE4)
