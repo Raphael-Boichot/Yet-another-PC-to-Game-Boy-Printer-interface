@@ -4,7 +4,7 @@ This project is designed to make sending data to the Game Boy Printer as simple 
 
 This code derives from a [version using an SD shield](https://github.com/Raphael-Boichot/The-Arduino-SD-Game-Boy-Printer) for the Arduino core and from a [direct PC to printer version](https://github.com/Raphael-Boichot/PC-to-Game-Boy-Printer-interface) for the GNU Octave interface. It is basically a fusion of the two projects.
 
-You can directly use the Arduino core with the [gb-printer-web](https://herrzatacke.github.io/gb-printer-web/webusb/) made by [HerrZatacke](https://github.com/HerrZatacke), it is compatible ! (connect @250000 baud)
+You can directly use the Arduino core with the [gb-printer-web](https://herrzatacke.github.io/gb-printer-web/webusb/) made by [HerrZatacke](https://github.com/HerrZatacke), it is compatible ! (connect @115200 baud)
 
 ## Printing Procedure (yes it is that simple)
 
