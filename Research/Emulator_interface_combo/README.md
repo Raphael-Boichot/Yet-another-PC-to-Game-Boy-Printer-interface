@@ -1,1 +1,3 @@
-These examples are provided as working code "straight out of the box." Feel free to control the Arduino with any other language.
+- Boot the Arduino alone, it will be the [Arduino Game Boy Printer emulator](https://github.com/mofosyne/arduino-gameboy-printer-emulator)
+- Boot the Arduino connected to a working Game Boy Printer, it will be the printer interface.
+- Reboot to change the mode.
