@@ -8,7 +8,7 @@ You can directly use the Arduino core with the [gb-printer-web](https://herrzata
 
 ## Printing Procedure (yes it is that simple)
 
-- The Arduino automatically connects to the printer and initializes it. Wait for the "Printer connected" message from the serial port before sending data. The initialization remains valid for at least 10 seconds. All data are exchanged at 250000 bauds.
+- The Arduino automatically connects to the printer and initializes it. Wait for the "Printer connected" message from the serial port before sending data. The initialization remains valid for at least 10 seconds. All data are exchanged at 115200 bauds.
 
 - To send data, use the following packet format:
 **["D"][640-byte [Gameboy 2BPP graphics data](https://www.huderlem.com/demos/gameboy2bpp.html)][CR]** (total of 642 bytes, CR is char(13), "D" keyword for data).
