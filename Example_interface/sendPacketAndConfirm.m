@@ -1,7 +1,7 @@
 % === Function to send and confirm echo ===
 function sendPacketAndConfirm(arduinoObj, packet)
 write(arduinoObj, packet, "uint8");  % Send packet
-pause(0.02);  % Give Arduino time to echo, increase if packets are skipped
+pause(0.1);  % Give Arduino time to echo, increase if packets are skipped
 
 %%%%%%%%%%%%%%%%%%this step is not mandatory, just for debug%%%%%%%%%%%%%%%%%%%%
 expectedLength = length(packet);
